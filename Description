@@ -1,0 +1,78 @@
+Project Overview
+The goal of this project is to build a model that can automatically classify images of cats and dogs. The process involves several stages, including:
+
+Data Loading and Preprocessing: We load the dataset, resize images, and flatten them to prepare them for machine learning.
+
+Model Training: A Support Vector Machine (SVM) classifier is trained on the image data.
+
+Model Evaluation: After training the model, it is evaluated on a test dataset to check its accuracy.
+
+Image Prediction: The trained model is then used to predict the labels (cat or dog) for new images.
+
+Technologies Used
+Python: Programming language used for the project.
+
+Google Colab: The notebook is hosted on Google Colab, making it easier to run the code without needing local resources.
+
+Kaggle API: Used to download the dataset from Kaggle.
+
+TensorFlow and Keras: While the SVM model is used for classification, TensorFlow/Keras could be integrated for future enhancements like CNNs.
+
+scikit-learn: Used for machine learning tasks, including data preprocessing, training the model, and evaluating performance.
+
+Matplotlib: For visualizing the images.
+
+Pandas and NumPy: For data manipulation and handling.
+
+Dataset Information
+The dataset used for this project is the Cats and Dogs 40 dataset, which contains 40 categories of images for each class. The dataset was downloaded from Kaggle and contains both training and test images. It consists of 2 primary categories:
+
+Cat
+
+Dog
+
+Steps Involved
+Download the Dataset:
+The dataset is downloaded using the Kaggle API:
+
+bash
+Copy
+Edit
+!mkdir -p ~/.kaggle
+!cp kaggle.json ~/.kaggle
+!kaggle datasets download -d stefancomanita/cats-and-dogs-40
+Data Preprocessing:
+The images are loaded, resized to 40x40 pixels, and flattened to create a feature vector for each image. This is done using the skimage library:
+
+python
+Copy
+Edit
+img_resized = resize(img_array, (40, 40, 3))
+flat_data_arr.append(img_resized.flatten())
+target_arr.append(Categories.index(category))
+Model Building:
+A Support Vector Machine (SVM) is used for classification, trained with various parameters like C (regularization), gamma (kernel coefficient), and kernel (type of kernel). We use GridSearchCV for hyperparameter tuning:
+
+python
+Copy
+Edit
+param_grid = {'C': [0.1, 1, 10, 100], 'gamma': [0.0001, 0.001, 0.1, 1], 'kernel': ['rbf', 'poly']}
+model = GridSearchCV(svc, param_grid)
+Model Training and Testing:
+The dataset is split into training and testing sets, and the SVM model is trained on the training data. We then test the model on the test data to evaluate its performance.
+
+Prediction:
+The model is used to predict the label of new images (cat or dog) by resizing and flattening the input image before making a prediction.
+
+Code Walkthrough
+Loading the Data:
+The dataset is loaded using the os and skimage libraries. Images are resized and flattened for model training.
+
+Model Training:
+We use scikit-learn's Support Vector Machine (SVM) classifier to train the model. We perform grid search to find the best hyperparameters using GridSearchCV.
+
+Model Evaluation:
+After training, the model's performance is evaluated using the accuracy score and a detailed classification report, which shows precision, recall, and F1-score for both classes (cat and dog).
+
+Prediction:
+We demonstrate the model's prediction by using test images and displaying the predicted label.
